@@ -1,4 +1,4 @@
 1.0
 ===
 
-Initial release with gzip module.
+Initial release with gzip and buffer module.
