@@ -1,5 +1,5 @@
-Welcome to skeleton documentation!
-========================================
+Welcome to jaraco.stream documentation!
+=======================================
 
 .. toctree::
    :maxdepth: 1
@@ -7,7 +7,7 @@ Welcome to skeleton documentation!
    history
 
 
-.. automodule:: skeleton
+.. automodule:: jaraco.stream
     :members:
     :undoc-members:
     :show-inheritance:

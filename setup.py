@@ -17,8 +17,8 @@ sphinx = ['sphinx', 'rst.linker'] if needs_sphinx else []
 needs_wheel = {'release', 'bdist_wheel'}.intersection(sys.argv)
 wheel = ['wheel'] if needs_wheel else []
 
-name = 'skeleton'
-description = ''
+name = 'jaraco.stream'
+description = 'routines for dealing with data streams'
 
 setup_params = dict(
 	name=name,
