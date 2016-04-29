@@ -6,6 +6,8 @@ in iterables.
 import zlib
 import itertools
 
+import six
+
 from . import buffer
 
 
@@ -21,7 +23,7 @@ def read_chunks(stream, block_size=2**10):
         yield chunk
 
 
-def load_stream(dc, chunks):
+def _load_stream_py3(dc, chunks):
     """
     Given a decompression stream and chunks, yield chunks of
     decompressed data until the compression window ends.
@@ -31,12 +33,27 @@ def load_stream(dc, chunks):
         yield res
 
 
+def _load_stream_py2(dc, chunks):
+    while True:
+        res = dc.decompress(dc.unconsumed_tail + next(chunks))
+        if not res:
+            break
+        yield res
+
+
+load_stream = [_load_stream_py2, _load_stream_py3][six.PY3]
+load_stream.__doc__ = _load_stream_py3.__doc__
+
+
 def load_streams(chunks):
     """
     Given a gzipped stream of data, yield streams of decompressed data.
     """
     while True:
-        dc = zlib.decompressobj(wbits=zlib.MAX_WBITS | 16)
+        if six.PY3:
+            dc = zlib.decompressobj(wbits=zlib.MAX_WBITS | 16)
+        else:
+            dc = zlib.decompressobj(zlib.MAX_WBITS | 16)
         yield load_stream(dc, chunks)
         chunks = itertools.chain((dc.unused_data,), chunks)
 
@@ -48,4 +65,5 @@ def lines_from_stream(chunks):
     buf = buffer.DecodingLineBuffer()
     for chunk in chunks:
         buf.feed(chunk)
-        yield from buf
+        # when Python 3, yield from buf
+        for _ in buf: yield _

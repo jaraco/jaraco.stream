@@ -1,4 +1,4 @@
-import urllib.request
+from six.moves import urllib, map
 
 import pytest
 from more_itertools.recipes import flatten
