@@ -5,7 +5,7 @@ from six.moves import urllib, map, BaseHTTPServer
 
 import pkg_resources
 import pytest
-from more_itertools.recipes import flatten
+from more_itertools.recipes import flatten, consume
 
 from jaraco.stream import gzip
 
@@ -60,3 +60,14 @@ def test_lines_from_stream(gzip_stream):
 	result = json.loads(second_line.rstrip('\n,'))
 	assert isinstance(result, dict)
 	assert 'id' in result
+
+
+def test_lines_completes(gzip_stream):
+	"""
+	When reading lines from a gzip stream, the operation should complete
+	when the stream is exhausted.
+	"""
+	chunks = gzip.read_chunks(gzip_stream)
+	streams = gzip.load_streams(chunks)
+	lines = flatten(map(gzip.lines_from_stream, streams))
+	consume(lines)
