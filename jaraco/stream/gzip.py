@@ -55,7 +55,8 @@ def load_streams(chunks):
         else:
             dc = zlib.decompressobj(zlib.MAX_WBITS | 16)
         yield load_stream(dc, chunks)
-        chunks = itertools.chain((dc.unused_data,), chunks)
+        if dc.unused_data:
+            chunks = itertools.chain((dc.unused_data,), chunks)
 
 
 def lines_from_stream(chunks):
