@@ -1,3 +1,9 @@
+1.1.1
+=====
+
+#2: Fixed issue where ``gzip.load_streams`` would get into
+an infinite loop at the end of every stream.
+
 1.1
 ===
 

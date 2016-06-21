@@ -8,6 +8,8 @@ import itertools
 
 import six
 
+from more_itertools.more import peekable
+
 from . import buffer
 
 
@@ -49,14 +51,15 @@ def load_streams(chunks):
     """
     Given a gzipped stream of data, yield streams of decompressed data.
     """
-    while True:
+    chunks = peekable(chunks)
+    while chunks:
         if six.PY3:
             dc = zlib.decompressobj(wbits=zlib.MAX_WBITS | 16)
         else:
             dc = zlib.decompressobj(zlib.MAX_WBITS | 16)
         yield load_stream(dc, chunks)
         if dc.unused_data:
-            chunks = itertools.chain((dc.unused_data,), chunks)
+            chunks = peekable(itertools.chain((dc.unused_data,), chunks))
 
 
 def lines_from_stream(chunks):
