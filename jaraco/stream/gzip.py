@@ -70,4 +70,5 @@ def lines_from_stream(chunks):
     for chunk in chunks:
         buf.feed(chunk)
         # when Python 3, yield from buf
-        for _ in buf: yield _
+        for _ in buf:
+            yield _

@@ -15,8 +15,8 @@ def gzipped_json():
 	"""
 	A gzipped json doc created by gzipping this file:
 	[
-	  {"id": 1, "data": "foo"},
-	  {"id": 2, "data": "bar"}
+		{"id": 1, "data": "foo"},
+		{"id": 2, "data": "bar"}
 	]
 	"""
 	strm = pkg_resources.resource_stream('jaraco.stream', 'somefile.json.gz')

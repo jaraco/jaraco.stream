@@ -64,6 +64,7 @@ class LineBuffer(object):
     def __len__(self):
         return len(self.buffer)
 
+
 class DecodingLineBuffer(LineBuffer):
     r"""
     Like LineBuffer, but decode the output (default assumes UTF-8).
@@ -110,6 +111,7 @@ class DecodingLineBuffer(LineBuffer):
             """)
         log.warning(msg)
         raise
+
 
 class LenientDecodingLineBuffer(LineBuffer):
     r"""
