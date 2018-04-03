@@ -1,3 +1,8 @@
+1.2
+===
+
+Added ``jaraco.stream.Tee`` from jaraco.util 11.
+
 1.1.2
 =====
 
