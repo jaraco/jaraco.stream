@@ -1,7 +1,3 @@
-# coding: utf-8
-
-from __future__ import unicode_literals, absolute_import
-
 import re
 import textwrap
 import logging
@@ -10,7 +6,7 @@ import logging
 log = logging.getLogger(__name__)
 
 
-class LineBuffer(object):
+class LineBuffer:
     r"""
     Buffer bytes read in from a connection and serve complete lines back.
 

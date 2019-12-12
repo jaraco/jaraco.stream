@@ -1,7 +1,7 @@
 import json
 import threading
-
-from six.moves import urllib, map, BaseHTTPServer
+import http.server
+import urllib.request
 
 import pkg_resources
 import pytest
@@ -25,7 +25,7 @@ def gzipped_json():
 
 @pytest.yield_fixture
 def gzip_server(gzipped_json):
-    class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+    class MyHandler(http.server.BaseHTTPRequestHandler):
         def do_GET(s):
             s.send_response(200)
             s.send_header("Content-type", "application/octet-stream")
@@ -35,7 +35,7 @@ def gzip_server(gzipped_json):
     host = ''
     port = 8080
     addr = host, port
-    httpd = BaseHTTPServer.HTTPServer(addr, MyHandler)
+    httpd = http.server.HTTPServer(addr, MyHandler)
     url = 'http://localhost:{port}/'.format(**locals())
     try:
         threading.Thread(target=httpd.serve_forever).start()

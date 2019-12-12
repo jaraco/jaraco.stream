@@ -1,9 +1,7 @@
-from __future__ import unicode_literals
-
 import sys
 
 
-class Tee(object):
+class Tee:
     """
     Copy the standard output to a file, but continue to write it to
     stdout.
