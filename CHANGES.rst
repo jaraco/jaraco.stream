@@ -3,6 +3,8 @@
 
 Drop support for Python 3.5 and earlier (including Python 2).
 
+Adopt black for code style and other updates from jaraco/skeleton.
+
 2.0
 ===
 
