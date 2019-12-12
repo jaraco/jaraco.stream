@@ -1,3 +1,8 @@
+3.0
+===
+
+Drop support for Python 3.5 and earlier (including Python 2).
+
 2.0
 ===
 
