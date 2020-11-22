@@ -1,7 +1,12 @@
+v3.0.1
+======
+
+Refresh package metadata.
+
 v3.0.0
 ======
 
-Drop support for Python 3.5 and earlier (including Python 2).
+Require Python 3.6 or later.
 
 Adopt black for code style and other updates from jaraco/skeleton.
 
