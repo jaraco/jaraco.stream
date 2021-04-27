@@ -36,7 +36,7 @@ def gzip_server(gzipped_json):
     port = 8080
     addr = host, port
     httpd = http.server.HTTPServer(addr, MyHandler)
-    url = 'http://localhost:{port}/'.format(**locals())
+    url = 'http://127.0.0.1:{port}/'.format(**locals())
     try:
         threading.Thread(target=httpd.serve_forever).start()
         yield url
