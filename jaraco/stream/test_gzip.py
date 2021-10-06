@@ -5,6 +5,7 @@ import urllib.request
 import textwrap
 import io
 import gzip as stdgzip
+import socket
 
 import pytest
 from more_itertools.recipes import flatten, consume
@@ -32,6 +33,21 @@ def gzipped_json():
     return bytes(buffer.getbuffer())
 
 
+# copied from CPython 3.10
+def _get_best_family(*address):
+    infos = socket.getaddrinfo(
+        *address,
+        type=socket.SOCK_STREAM,
+        flags=socket.AI_PASSIVE,
+    )
+    family, type, proto, canonname, sockaddr = next(iter(infos))
+    return family, sockaddr
+
+
+class BestFamilyServer(http.server.HTTPServer):
+    address_family, _ = _get_best_family(None, 8080)
+
+
 @pytest.fixture
 def gzip_server(gzipped_json):
     class MyHandler(http.server.BaseHTTPRequestHandler):
@@ -44,7 +60,7 @@ def gzip_server(gzipped_json):
     host = ''
     port = 8080
     addr = host, port
-    httpd = http.server.HTTPServer(addr, MyHandler)
+    httpd = BestFamilyServer(addr, MyHandler)
     url = 'http://localhost:{port}/'.format(**locals())
     try:
         threading.Thread(target=httpd.serve_forever).start()
