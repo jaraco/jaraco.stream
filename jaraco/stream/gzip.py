@@ -52,6 +52,4 @@ def lines_from_stream(chunks):
     buf = buffer.DecodingLineBuffer()
     for chunk in chunks:
         buf.feed(chunk)
-        # when Python 3, yield from buf
-        for _ in buf:
-            yield _
+        yield from buf
