@@ -1,3 +1,12 @@
+v3.0.3
+======
+
+Refreshed package metadata.
+
+#3: Fixed issue in tests where the connection to the test server
+would fail on hosts where localhost resolved to ::1. Now the
+test server binds to IPv6 when available and appropriate.
+
 v3.0.2
 ======
 
