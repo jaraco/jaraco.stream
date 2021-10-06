@@ -2,8 +2,10 @@ import json
 import threading
 import http.server
 import urllib.request
+import textwrap
+import io
+import gzip as stdgzip
 
-from importlib_resources import files
 import pytest
 from more_itertools.recipes import flatten, consume
 
@@ -13,13 +15,21 @@ from jaraco.stream import gzip
 @pytest.fixture
 def gzipped_json():
     """
-    A gzipped json doc created by gzipping this file:
-    [
-        {"id": 1, "data": "foo"},
-        {"id": 2, "data": "bar"}
-    ]
+    A gzipped json doc.
     """
-    return files('jaraco.stream').joinpath('somefile.json.gz').read_bytes()
+    payload = textwrap.dedent(
+        """
+        [
+            {"id": 1, "data": "foo"},
+            {"id": 2, "data": "bar"}
+        ]
+        """
+    ).lstrip()
+    buffer = io.BytesIO()
+    gz = stdgzip.GzipFile(mode='w', fileobj=buffer)
+    gz.write(payload.encode())
+    gz.close()
+    return bytes(buffer.getbuffer())
 
 
 @pytest.fixture
