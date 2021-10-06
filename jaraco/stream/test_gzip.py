@@ -22,7 +22,7 @@ def gzipped_json():
     return files('jaraco.stream').joinpath('somefile.json.gz').read_bytes()
 
 
-@pytest.yield_fixture
+@pytest.fixture
 def gzip_server(gzipped_json):
     class MyHandler(http.server.BaseHTTPRequestHandler):
         def do_GET(s):
