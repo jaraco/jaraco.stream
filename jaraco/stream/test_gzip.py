@@ -3,7 +3,7 @@ import threading
 import http.server
 import urllib.request
 
-import pkg_resources
+from importlib_resources import files
 import pytest
 from more_itertools.recipes import flatten, consume
 
@@ -19,8 +19,7 @@ def gzipped_json():
         {"id": 2, "data": "bar"}
     ]
     """
-    strm = pkg_resources.resource_stream('jaraco.stream', 'somefile.json.gz')
-    return strm.read()
+    return files('jaraco.stream').joinpath('somefile.json.gz').read_bytes()
 
 
 @pytest.yield_fixture
