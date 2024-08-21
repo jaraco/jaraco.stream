@@ -1,1 +1,0 @@
-Moved more_itertools into the dependencies.

@@ -1,3 +1,12 @@
+v3.0.4
+======
+
+Bugfixes
+--------
+
+- Moved more_itertools into the dependencies. (#5)
+
+
 v3.0.3
 ======
 
