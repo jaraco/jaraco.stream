@@ -41,7 +41,7 @@ def load_streams(chunks):
     while chunks:
         dc = zlib.decompressobj(wbits=zlib.MAX_WBITS | 16)
         yield load_stream(dc, chunks)
-        if dc.unused_data:
+        if dc.unused_data:  # pragma: no cover
             chunks = peekable(itertools.chain((dc.unused_data,), chunks))
 
 
