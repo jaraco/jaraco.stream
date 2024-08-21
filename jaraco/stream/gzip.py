@@ -11,7 +11,7 @@ from more_itertools.more import peekable
 from . import buffer
 
 
-def read_chunks(stream, block_size=2 ** 10):
+def read_chunks(stream, block_size=2**10):
     """
     Given a byte stream with reader, yield chunks of block_size
     until the stream is consusmed.

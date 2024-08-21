@@ -40,6 +40,7 @@ class LineBuffer:
     >>> for line, expected in zip(b, [b'iterate', b'this']):
     ...    assert line == expected
     """
+
     line_sep_exp = re.compile(b'\r?\n')
 
     def __init__(self):
@@ -90,6 +91,7 @@ class DecodingLineBuffer(LineBuffer):
     ...
     UnicodeDecodeError: ...
     """
+
     encoding = 'utf-8'
     errors = 'strict'
 
