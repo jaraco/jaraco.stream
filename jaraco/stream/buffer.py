@@ -98,9 +98,12 @@ class DecodingLineBuffer(LineBuffer):
     def lines(self):
         for line in super(DecodingLineBuffer, self).lines():
             try:
-                yield line.decode(self.encoding, self.errors)
+                yield line.decode(self.encoding, 'strict')
             except UnicodeDecodeError:
-                self.handle_exception()
+                try:
+                    yield line.decode('windows-1252', self.errors)
+                except UnicodeDecodeError:
+                    self.handle_exception()
 
     def handle_exception(self):
         msg = textwrap.dedent(
