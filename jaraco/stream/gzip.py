@@ -53,3 +53,5 @@ def lines_from_stream(chunks):
     for chunk in chunks:
         buf.feed(chunk)
         yield from buf
+    if buf:
+        yield buf.buffer.decode(buf.encoding, buf.errors)
