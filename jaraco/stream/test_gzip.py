@@ -1,14 +1,14 @@
-import json
-import threading
-import http.server
-import urllib.request
-import textwrap
-import io
 import gzip as stdgzip
+import http.server
+import io
+import json
 import socket
+import textwrap
+import threading
+import urllib.request
 
 import pytest
-from more_itertools.recipes import flatten, consume
+from more_itertools.recipes import consume, flatten
 
 from jaraco.stream import gzip
 
@@ -40,7 +40,7 @@ def _get_best_family(*address):
         type=socket.SOCK_STREAM,
         flags=socket.AI_PASSIVE,
     )
-    family, type, proto, canonname, sockaddr = next(iter(infos))
+    family, _type, _proto, _canonname, sockaddr = next(iter(infos))
     return family, sockaddr
 
 

@@ -8,7 +8,7 @@ class Tee:
     """
 
     def __init__(self, name, mode):
-        self.file = open(name, mode)
+        self.file = open(name, mode)  # noqa: SIM115 # closed in __del__
         self.stdout = sys.stdout
         sys.stdout = self
 

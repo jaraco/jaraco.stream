@@ -1,7 +1,6 @@
+import logging
 import re
 import textwrap
-import logging
-
 
 log = logging.getLogger(__name__)
 
@@ -96,7 +95,7 @@ class DecodingLineBuffer(LineBuffer):
     errors = 'strict'
 
     def lines(self):
-        for line in super(DecodingLineBuffer, self).lines():
+        for line in super().lines():
             try:
                 yield line.decode(self.encoding, self.errors)
             except UnicodeDecodeError:
@@ -110,7 +109,7 @@ class DecodingLineBuffer(LineBuffer):
             """
         )
         log.warning(msg)
-        raise
+        raise  # noqa: PLE0704 # called from an except block
 
 
 class LenientDecodingLineBuffer(LineBuffer):
@@ -127,7 +126,7 @@ class LenientDecodingLineBuffer(LineBuffer):
     """
 
     def lines(self):
-        for line in super(LenientDecodingLineBuffer, self).lines():
+        for line in super().lines():
             try:
                 yield line.decode('utf-8', 'strict')
             except UnicodeDecodeError:

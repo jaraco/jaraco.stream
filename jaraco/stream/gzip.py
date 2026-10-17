@@ -3,8 +3,8 @@ Routines for reliably decompressing gzip streams
 in iterables.
 """
 
-import zlib
 import itertools
+import zlib
 
 from more_itertools.more import peekable
 
